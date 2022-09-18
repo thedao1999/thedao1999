@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Timekeeper</title>
+    <link rel="stylesheet" href="static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="static/jquery-3.2.1.min.js"></script>
+    <script src="socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/starter-template/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="ad/style.css" rel="stylesheet">
+    <style>
+
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="home.html">
+            <h2>Home</h2>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+    <main role="main" class="container main-container">
+        <h1></h1>
+        <div class="alert alert-success"> </div>
+        <div class="card">
+
+            <div class="card-header">
+                <div class="d-flex flex-row justify-content-between">
+
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-dark" id="tbody-id">
+                    <thead>
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Tên</th>
+                            <th scope="col">Thời gian muộn</th>
+                            <th scope="col">Thời gian có mặt</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <!-- <tr>
+                            <td></td>
+                            <td id="infor">
+                                <p id='Information'>0</p>
+                            </td>
+                            <td>08h-15'</td>
+                            <td>17h-30'</td>
+                            <td id="time">
+                                <p id='RTC'>0</p>
+                            </td>
+                        </tr> -->
+                    </tbody>
+                    <script>
+                        var socket = io.connect('http://localhost:3000');
+                        var i = 1;
+                        var table = document.getElementById("tbody-id");
+                        socket.on('RC522', function(data) { //As a RC522 data is received 
+                            console.log(data.infor);
+                            console.log('Data : ' + data)
+                                 
+                            var my_data = [data.infor, data.time];
+                            console.log('My Data : ' + my_data);
+                            var index = 0;
+                            // document.getElementById('Information').innerHTML = data.infor;
+                            // document.getElementById('RTC').innerHTML = data.time;
+                            // Insert a row at the end of table
+                            var newRow = table.insertRow();
+
+                            // Insert a cell at the end of the row
+                            addCell(newRow, i)
+                            for (const key in data) {
+                                addCell(newRow, data[key])
+                            }
+                            i += 1
+                        });
+
+                        function addCell(newRow, data) {
+                            var newCell = newRow.insertCell()
+                            newCell.append(data)
+                        }
+                    </script>
+
+                </table>
+            </div>
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
